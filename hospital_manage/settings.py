@@ -24,9 +24,9 @@ AUTH_USER_MODEL = 'users.CustomUser'
 SECRET_KEY = "django-insecure-pt2rt0sqr_$h!&k%kx&+e+dwo*@@$a=6+iu!!!6(5v7+x&=*lz"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['iyask.pythonanywhere.com']
 
 
 # Application definition
@@ -128,3 +128,5 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 LOGIN_URL = '/login/'
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
