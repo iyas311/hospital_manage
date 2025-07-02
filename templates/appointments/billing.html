@@ -1,0 +1,51 @@
+{% extends 'base_patient.html' %}
+{% block title %}My Billing{% endblock %}
+
+{% block content %}
+<h2 class="mb-4" data-aos="fade-down">Billing Information</h2>
+
+{% if bills %}
+<table class="table table-bordered table-striped" data-aos="fade-up">
+    <thead class="table-dark">
+        <tr>
+            <th>Date</th>
+            <th>Doctor</th>
+            <th>Consultation Fee</th>
+            <th>Medicine Charges</th>
+            <th>Lab Tests</th>
+            <th>Other</th>
+            <th>Total</th>
+            <th>Paid</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for bill in bills %}
+        <tr>
+            <td>{{ bill.appointment.appointment_time|date:"M d, Y H:i" }}</td>
+            <td>{{ bill.appointment.doctor.user.get_full_name }}</td>
+            <td>₹{{ bill.consultation_fee }}</td>
+            <td>₹{{ bill.medicine_charges }}</td>
+            <td>₹{{ bill.lab_tests }}</td>
+            <td>₹{{ bill.other_charges }}</td>
+            <td><strong>₹{{ bill.total }}</strong></td>
+            <td>
+    {% if bill.paid %}
+        <span class="badge bg-success">Paid</span>
+    {% else %}
+    <div class="d-flex align-items-center gap-3">
+        <span class="badge rounded-pill bg-danger px-3 py-2">Unpaid</span>
+        <a href="{% url 'pay_bill' bill.id %}" class="btn btn-sm btn-outline-primary">
+            <i class="bi bi-credit-card"></i> Pay Now
+        </a>
+    </div>
+{% endif %}
+
+</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+    <div class="alert alert-info">No billing records found.</div>
+{% endif %}
+{% endblock %}

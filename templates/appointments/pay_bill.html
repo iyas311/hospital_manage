@@ -1,0 +1,17 @@
+{% extends 'base_patient.html' %}
+{% block title %}Pay Bill{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm p-4" data-aos="fade-up">
+    <h3>Pay Bill</h3>
+    <p><strong>Doctor:</strong> {{ bill.appointment.doctor.user.get_full_name }}</p>
+    <p><strong>Date:</strong> {{ bill.appointment.appointment_time|date:"M d, Y H:i" }}</p>
+    <p><strong>Total Amount:</strong> ₹{{ bill.total }}</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success">Pay Now</button>
+        <a href="{% url 'billing' %}" class="btn btn-secondary ms-2">Cancel</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base_doctor.html' %}
+{% block title %}My Appointments{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4" data-aos="fade-down">All Appointments</h2>
+
+    {% if appointments %}
+        <div class="table-responsive" data-aos="fade-up">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Patient</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                        <th>Diagnosis</th>
+                        <th>Prescription</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for appointment in appointments %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ appointment.patient.user.get_full_name }}</td>
+                        <td>{{ appointment.appointment_time }}</td>
+                        <td>{{ appointment.status }}</td>
+                        <td>{{ appointment.diagnosis|default:"—" }}</td>
+                        <td>{{ appointment.prescription|default:"—" }}</td>
+                        <td>
+                            <a href="{% url 'update_appointment' appointment.id %}" class="btn btn-sm btn-primary">Update</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info" data-aos="fade-in">You have no appointments yet.</div>
+    {% endif %}
+</div>
+{% endblock %}

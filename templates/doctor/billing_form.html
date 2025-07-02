@@ -1,0 +1,11 @@
+{% extends 'base_doctor.html' %}
+{% block title %}Add Billing{% endblock %}
+
+{% block content %}
+<h2>Billing for {{ appointment.patient.user.get_full_name }}</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">Save Bill</button>
+</form>
+{% endblock %}

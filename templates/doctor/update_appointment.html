@@ -1,0 +1,60 @@
+{% extends 'base_doctor.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Update Appointment{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Update Appointment</h2>
+
+<!-- Patient Details -->
+<div class="card mb-4 shadow" data-aos="fade-down">
+    <div class="card-header bg-info text-white">
+        <h5 class="mb-0">Patient Details</h5>
+    </div>
+    <div class="card-body">
+        <p><strong>Name:</strong> {{ appointment.patient.user.get_full_name }}</p>
+        <p><strong>Age:</strong> {{ appointment.patient.age }}</p>
+        <p><strong>Gender:</strong> {{ appointment.patient.gender }}</p>
+        <p><strong>Phone:</strong> {{ appointment.patient.phone }}</p>
+        <p><strong>Address:</strong> {{ appointment.patient.address }}</p>
+        <p><strong>Blood Group:</strong> {{ appointment.patient.blood_group }}</p>
+        <p><strong>Emergency Contact:</strong> {{ appointment.patient.emergency_contact }}</p>
+    </div>
+</div>
+
+<!-- Update Form -->
+<form method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    <div class="mb-3">
+        <label>Diagnosis</label>
+        {{ form.diagnosis|add_class:"form-control" }}
+    </div>
+
+    <div class="mb-3">
+        <label>Prescription</label>
+        {{ form.prescription|add_class:"form-control" }}
+    </div>
+
+    <div class="mb-3">
+        <label>Status</label>
+        {{ form.status|add_class:"form-control" }}
+    </div>
+
+    <hr class="my-4">
+
+    <h4 class="mb-3">Billing Details</h4>
+    {{ billing_form.non_field_errors }}
+
+    {% for field in billing_form %}
+        <div class="mb-3">
+            <label>{{ field.label }}</label>
+            {{ field|add_class:"form-control" }}
+            {{ field.errors }}
+        </div>
+    {% endfor %}
+
+    <button type="submit" class="btn btn-success mt-3">Save</button>
+</form>
+{% endblock %}

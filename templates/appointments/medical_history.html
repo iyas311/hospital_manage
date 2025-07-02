@@ -1,0 +1,39 @@
+{% extends 'base_patient.html' %}
+
+{% block title %}Medical History{% endblock %}
+
+{% block content %}
+<div class="text-center mb-4">
+    <h2 data-aos="fade-down" class="fw-bold">Medical History</h2>
+    <p class="text-muted" data-aos="fade-up">Review your past appointments and treatments</p>
+</div>
+
+<div class="table-responsive" data-aos="fade-up" data-aos-delay="100">
+    {% if history %}
+        <table class="table table-bordered table-hover shadow-sm">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Doctor</th>
+                    <th scope="col">Specialization</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Diagnosis</th>
+                    <th scope="col">Prescriptions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in history %}
+                <tr>
+                    <td>{{ record.doctor.user.get_full_name }}</td>
+                    <td>{{ record.doctor.specialization }}</td>
+                    <td>{{ record.appointment_time|date:"M d, Y" }}</td>
+                    <td>{{ record.diagnosis }}</td>
+                    <td>{{ record.prescription }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-info">No medical history available.</div>
+    {% endif %}
+</div>
+{% endblock %}

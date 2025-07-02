@@ -1,0 +1,43 @@
+{% extends 'base_patient.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Patient Dashboard{% endblock %}
+
+{% block content %}
+<div class="text-center mb-4">
+    <h2 data-aos="fade-down" class="fw-bold">Patient Dashboard</h2>
+    <p class="text-muted" data-aos="fade-up">Stay updated with your appointments and history</p>
+</div>
+
+<div class="row" data-aos="fade-up" data-aos-delay="100">
+    <div class="col-12">
+        <h4 class="mb-3">Upcoming Appointments</h4>
+        {% if appointments %}
+            <div class="row g-3">
+                {% for appointment in appointments %}
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card shadow-sm border-0 h-100" data-aos="zoom-in" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+                            <div class="card-body">
+                                <h5 class="card-title">Dr. {{ appointment.doctor.user.get_full_name }}</h5>
+                                <p>{{ appointment.doctor.specialization }}</p>
+                                <p class="card-text">
+                                    <strong>Date:</strong> {{ appointment.appointment_time|date:"D, M d, Y" }}<br>
+                                    <strong>Time:</strong> {{ appointment.appointment_time|time:"H:i A" }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info">You have no upcoming appointments.</div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="mt-5 d-flex flex-wrap justify-content-center gap-3" data-aos="fade-up" data-aos-delay="200">
+    <a href="{% url 'book_appointment' %}" class="btn btn-success btn-lg px-4">Book New Appointment</a>
+    <a href="{% url 'medical_history' %}" class="btn btn-outline-primary btn-lg px-4">Medical History</a>
+    <a href="{% url 'billing' %}" class="btn btn-outline-secondary btn-lg px-4">Billing</a>
+</div>
+{% endblock %}
