@@ -1,0 +1,8 @@
+Django==5.1.7
+djangorestframework==3.16.0
+django-cors-headers==4.7.0
+django-crispy-forms==2.3
+crispy-bootstrap5==2024.10
+django-widget-tweaks==1.5.0
+django-tinymce==4.1.0
+mysqlclient==2.2.7
